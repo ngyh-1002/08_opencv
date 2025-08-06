@@ -23,11 +23,11 @@ plt.scatter(blue[:,0],blue[:,1],80,'b','s')
 newcomer = np.random.randint(0,255,(1,2)).astype(np.float32)
 plt.scatter(newcomer[:,0],newcomer[:,1],80,'g','o')
 # SVM 알고리즘 객체 생성 및 훈련---⑨
-svm = cv2.ml.SVM_create()
+#svm = cv2.ml.SVM_create()
 
-svm.trainAuto(trainData, cv2.ml.ROW_SAMPLE, responses)
+#svm.trainAuto(trainData, cv2.ml.ROW_SAMPLE, responses)
 # svm_random.xml 로 저장 ---⑩
-svm.save('./svm_random.xml')
+#svm.save('./svm_random.xml')
 # 저장한 모델을 다시 읽기 ---⑪
 svm2  = cv2.ml.SVM_load('./svm_random.xml')
 # 새로운 임의의 수 예측 ---⑫
