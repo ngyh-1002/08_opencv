@@ -21,6 +21,13 @@ def deskew(img, size=(20, 20)):
     return img
 
 # HOGDescriptor를 위한 파라미터 설정 및 생성---②
+# cellSize (셀 크기) = 숫자 모양의 세부 정보를 얼마나 자세히 보느냐
+# 작게 설정하면 더 섬세하게 분석 가능.
+# blockSize는 cellSize보다 2배 크기 권장.
+# blockStride는 blockSize보다 작게 설정해서 겹치도록!
+# nbins (방향 개수) = 얼마나 정밀하게 방향을 나누는지
+# 보통 9~12 정도 사용함.
+# 너무 크면 잡음에 민감해지고, 너무 작으면 정보가 손실
 winSize = (20,20)
 blockSize = (8,8)
 blockStride = (4,4)
