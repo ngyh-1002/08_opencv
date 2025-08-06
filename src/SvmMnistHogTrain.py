@@ -22,9 +22,9 @@ def deskew(img, size=(20, 20)):
 
 # HOGDescriptor를 위한 파라미터 설정 및 생성---②
 winSize = (20,20)
-blockSize = (10,10)
-blockStride = (10,10)
-cellSize = (10,10)
+blockSize = (8,8)
+blockStride = (4,4)
+cellSize = (4,4)
 nbins = 12
 hogDesc = cv2.HOGDescriptor(winSize,blockSize,blockStride,cellSize,nbins)
 
