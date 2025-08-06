@@ -5,21 +5,27 @@ import time
 
 # 기울어진 숫자를 바로 세우기 위한 함수 ---①
 affine_flags = cv2.WARP_INVERSE_MAP|cv2.INTER_LINEAR
-def deskew(img):
+def deskew(img, size=(20, 20)):
+    # 이미지 모멘트 계산
     m = cv2.moments(img)
+    # 중심 좌표
     if abs(m['mu02']) < 1e-2:
+        # 기울기 없음: 그대로 반환
         return img.copy()
-    skew = m['mu11']/m['mu02']
-    M = np.float32([[1, skew, -0.5*20*skew], [0, 1, 0]])
-    img = cv2.warpAffine(img,M,(20, 20),flags=affine_flags)
+    # 기울기(tan(θ)) 계산
+    skew = m['mu11'] / m['mu02']
+    # 보정 행렬 (affine matrix)
+    M = np.float32([[1, skew, -0.5 * size[0] * skew], [0, 1, 0]])
+    # 어핀 변환으로 기울기 보정
+    img = cv2.warpAffine(img, M, size, flags=affine_flags)
     return img
 
 # HOGDescriptor를 위한 파라미터 설정 및 생성---②
 winSize = (20,20)
 blockSize = (10,10)
-blockStride = (5,5)
-cellSize = (5,5)
-nbins = 9
+blockStride = (10,10)
+cellSize = (10,10)
+nbins = 12
 hogDesc = cv2.HOGDescriptor(winSize,blockSize,blockStride,cellSize,nbins)
 
 if __name__ =='__main__':

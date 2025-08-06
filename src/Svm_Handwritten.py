@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
 import mnist
-import svm_mnist_hog_train 
+import SvmMnistHogTrain
 
 
 # 훈련해서 저장한 SVM 객체 읽기 ---① 
 svm = cv2.ml.SVM_load('./svm_mnist.xml')
 # 인식할 손글씨 이미지 읽기 ---②
-image = cv2.imread('../img/4027.png')
+image = cv2.imread('../img/number.png')
 cv2.imshow("image", image)
 cv2.waitKey(0) 
 
@@ -30,9 +30,9 @@ for c in contours:
         # 테스트 데이타 형식으로 변환 ---⑧
         px20 = mnist.digit2data(roi, False)
         # 기울어진 숫자를 바로 세우기 ---⑨
-        deskewed = svm_mnist_hog_train.deskew(px20)
+        deskewed = SvmMnistHogTrain.deskew(px20)
         # 인식할 숫자에 대한 HOG 디스크립터 계산 ---⑩
-        hogdata = svm_mnist_hog_train.hogDesc.compute(deskewed)
+        hogdata = SvmMnistHogTrain.hogDesc.compute(deskewed)
         testData = np.float32(hogdata).reshape(-1, hogdata.shape[0])
         # 결과 예측해서 표시 ---⑪
         ret, result = svm.predict(testData)
